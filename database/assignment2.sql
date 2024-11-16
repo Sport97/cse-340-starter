@@ -12,7 +12,7 @@ VALUES (
     );
 UPDATE public.account
 SET account_type = 'Admin'
-WHERE account_id = 1
+WHERE account_id = 1;
 DELETE FROM public.account
 WHERE account_id = 1;
 UPDATE public.inventory
