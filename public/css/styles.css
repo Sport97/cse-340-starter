@@ -73,7 +73,7 @@ main,
 footer {
   margin: 0 auto;
 }
-.navigation {
+nav {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -81,17 +81,17 @@ footer {
   margin: 0 auto;
   width: 100%;
 }
-.navigation ul {
+nav ul {
   list-style-type: none;
   overflow: hidden;
   align-items: center;
   justify-content: center;
   padding: 10px;
 }
-.navigation li {
+nav li {
   display: block;
 }
-.navigation li a {
+nav li a {
   display: block;
   text-align: center;
   text-decoration: none;
@@ -99,7 +99,7 @@ footer {
   font-size: 1.1rem;
   padding: 10px;
 }
-.navigation a:hover,
+nav a:hover,
 a:active {
   background-color: #85d6ff;
   color: black;
