@@ -43,7 +43,6 @@ body {
 }
 #wrapper {
   width: auto;
-  display: block;
   margin: auto;
   font-weight: 500;
 }
@@ -74,25 +73,20 @@ footer {
   margin: 0 auto;
 }
 nav {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
   background-color: black;
   margin: 0 auto;
   width: 100%;
 }
 nav ul {
+  display: flex;
+  flex-wrap: wrap;
   list-style-type: none;
   overflow: hidden;
   align-items: center;
   justify-content: center;
   padding: 10px;
 }
-nav li {
-  display: block;
-}
 nav li a {
-  display: block;
   text-align: center;
   text-decoration: none;
   color: #85d6ff;
@@ -154,13 +148,36 @@ main {
   height: auto;
 }
 .dmc-upgrade a {
-  display: block;
   color: #0a2239;
   text-decoration: underline;
   margin-top: 5px;
 }
+.vehicle-container img {
+  width: 100%;
+  height: auto;
+  padding-bottom: 25px;
+}
+.vehicle-container h2,
+p {
+  padding-bottom: 25px;
+}
+.vehicle-container p:nth-of-type(1)::before {
+  content: "Price: ";
+  font-weight: 700;
+}
+.vehicle-container p:nth-of-type(2)::before {
+  content: "Description: ";
+  font-weight: 700;
+}
+.vehicle-container p:nth-of-type(3)::before {
+  content: "Color: ";
+  font-weight: 700;
+}
+.vehicle-container p:nth-of-type(4)::before {
+  content: "Miles: ";
+  font-weight: 700;
+}
 footer {
-  display: block;
   background-color: black;
   color: #85d6ff;
   text-align: center;
@@ -199,5 +216,8 @@ footer {
   .upgrades {
     grid-column: 1/2;
     grid-row: 1;
+  }
+  .vehicle-container {
+    column-count: 2;
   }
 }
