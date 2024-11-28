@@ -1,7 +1,7 @@
 <h1><%= title %></h1>
 <%- messages() %>
 <div id="login">
-  <form class="account" action="/#" method="POST">
+  <form class="account" action="/account/login" method="post">
     <fieldset class="sign-in">
       <label id="account_email"
         >Email:<input
@@ -9,6 +9,7 @@
           name="account_email"
           required
           placeholder="Enter a valid email address"
+          value="<%= locals.account_email %>"
       /></label>
 
       <label id="account_password"
