@@ -101,6 +101,10 @@ a:active {
 main {
   background-color: #0a2239;
 }
+.notice {
+  list-style-type: none;
+  text-align: left;
+}
 .welcome {
   display: grid;
   position: relative;
@@ -177,6 +181,63 @@ p {
   content: "Miles: ";
   font-weight: 700;
 }
+.account {
+  color: #91b8d4;
+  padding: 5px;
+  padding: 0 2%;
+  min-height: 20rem;
+}
+.account fieldset {
+  margin: 2rem 0;
+  border: 1px solid #85d6ff;
+  border-radius: 6px;
+  padding: 0.5rem 2%;
+}
+.account label {
+  display: block;
+  padding-top: 1rem;
+  color: #85d6ff;
+  font-size: 0.9rem;
+}
+.account input[type="text"],
+.account input[type="email"],
+.account input[type="password"] {
+  display: block;
+  background-color: #7093ae;
+  border: 1px solid #85d6ff;
+  border-radius: 6px;
+  padding: 0.75rem;
+  color: black;
+  width: 75%;
+  max-width: 400px;
+  appearance: none;
+  cursor: text;
+}
+.account ::placeholder {
+  color: black;
+}
+.account input[type="submit"] {
+  border: none;
+  background-color: #91b8d4;
+  color: #0a2239;
+  border-radius: 6px;
+  padding: 0.8rem;
+  width: 50%;
+  max-width: 400px;
+  margin: 1rem 2% 2rem 2%;
+  box-shadow: 1px 1px 4px #85d6ff;
+  cursor: pointer;
+}
+.account input:required:invalid,
+input:focus:invalid {
+  border-bottom: solid 8px #85d6ff;
+}
+.account input:required:valid {
+  border-bottom: solid 8px #7093ae;
+}
+#login p {
+  text-align: center;
+}
 footer {
   background-color: black;
   color: #85d6ff;
@@ -219,5 +280,8 @@ footer {
   }
   .vehicle-container {
     column-count: 2;
+  }
+  .account input[type="submit"] {
+    margin: 1rem 2% 2rem 25%;
   }
 }

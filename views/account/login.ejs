@@ -1,0 +1,26 @@
+<h1><%= title %></h1>
+<%- messages() %>
+<div id="login">
+  <form class="account" action="/#" method="POST">
+    <fieldset class="sign-in">
+      <label id="account_email"
+        >Email:<input
+          type="email"
+          name="account_email"
+          required
+          placeholder="Enter a valid email address"
+      /></label>
+
+      <label id="account_password"
+        >Password:<input
+          type="password"
+          name="account_password"
+          required
+          pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$"
+      /></label>
+    </fieldset>
+
+    <input type="submit" name="loginBtn" value="Login" />
+  </form>
+  <p>No account? <a href="/account/registration">Sign-up</a></p>
+</div>
