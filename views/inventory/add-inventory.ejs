@@ -1,0 +1,91 @@
+<h1><%= title %></h1>
+<%- messages() %> <% if (errors) { %>
+<ul class="notice">
+  <% errors.array().forEach(error => { %>
+  <li><%= error.msg %></li>
+  <% }) %>
+</ul>
+<% } %>
+<div id="inventory">
+  <form class="add-inv" action="/inv/add-inventory" method="post">
+    <fieldset class="inventory-details">
+      <label id="inv_make"
+        >Make:<input
+          type="text"
+          name="inv_make"
+          required
+          value="<%= locals.inv_make %>"
+      /></label>
+
+      <label id="inv_model"
+        >Model:<input
+          type="text"
+          name="inv_model"
+          required
+          value="<%= locals.inv_model %>"
+      /></label>
+
+      <label id="inv_year"
+        >Year:<input
+          type="text"
+          name="inv_year"
+          required
+          value="<%= locals.inv_year %>"
+      /></label>
+
+      <label id="inv_description"
+        >Description:<input
+          type="text"
+          name="inv_description"
+          required
+          value="<%= locals.inv_description %>"
+      /></label>
+
+      <label id="inv_image"
+        >Image:<input
+          type="text"
+          name="inv_image"
+          required
+          value="<%= locals.inv_image %>"
+      /></label>
+
+      <label id="inv_thumbnail"
+        >Thumbnail:<input
+          type="text"
+          name="inv_thumbnail"
+          required
+          value="<%= locals.inv_thumbnail %>"
+      /></label>
+
+      <label id="inv_price"
+        >Price:<input
+          type="text"
+          name="inv_price"
+          required
+          value="<%= locals.inv_price %>"
+      /></label>
+
+      <label id="inv_miles"
+        >Miles:<input
+          type="text"
+          name="inv_miles"
+          required
+          value="<%= locals.inv_miles %>"
+      /></label>
+
+      <label id="inv_color"
+        >Color:<input
+          type="text"
+          name="inv_color"
+          required
+          value="<%= locals.inv_color %>"
+      /></label>
+
+      <label id="classification_id"
+        >Classification: <%- classificationList, locals.classification_id %>
+      </label>
+    </fieldset>
+
+    <input type="submit" name="invBtn" value="Add inventory" />
+  </form>
+</div>

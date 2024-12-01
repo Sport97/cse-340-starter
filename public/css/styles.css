@@ -43,6 +43,7 @@ body {
 }
 #wrapper {
   width: auto;
+  display: block;
   margin: auto;
   font-weight: 500;
 }
@@ -80,13 +81,18 @@ nav {
 nav ul {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   list-style-type: none;
   overflow: hidden;
   align-items: center;
   justify-content: center;
   padding: 10px;
 }
+.navigation li {
+  display: block;
+}
 nav li a {
+  display: block;
   text-align: center;
   text-decoration: none;
   color: #85d6ff;
@@ -126,6 +132,13 @@ main {
   background-color: rgba(0, 0, 0, 0.5);
   text-align: left;
 }
+.overlay-text p {
+  padding-bottom: 1px;
+}
+.overlay-text img {
+  width: 75%;
+  height: auto;
+}
 .reviews ul {
   list-style-type: disc;
   overflow: hidden;
@@ -152,9 +165,33 @@ main {
   height: auto;
 }
 .dmc-upgrade a {
+  display: block;
   color: #0a2239;
   text-decoration: underline;
   margin-top: 5px;
+}
+#inv-display {
+  display: flex;
+  flex-direction: column;
+  list-style-type: none;
+  overflow: hidden;
+  justify-content: left;
+  padding: 10px;
+}
+#inv-display li {
+  text-align: left;
+  font-size: 1.1rem;
+  padding: 10px;
+  border-top: 1px solid #85d6ff;
+}
+#inv-display img {
+  width: 100%;
+  height: auto;
+}
+#inv-display hr {
+  border: none;
+  height: 0;
+  margin: 0;
 }
 .vehicle-container img {
   width: 100%;
@@ -181,24 +218,39 @@ p {
   content: "Miles: ";
   font-weight: 700;
 }
-.account {
+#management {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+}
+#management a {
+  padding-bottom: 10px;
+}
+.account,
+.add-classif,
+.add-inv {
   color: #91b8d4;
-  padding: 5px;
-  padding: 0 2%;
+  padding: 5px 2%;
   min-height: 20rem;
 }
-.account fieldset {
+.account fieldset,
+.add-classif fieldset,
+.add-inv fieldset {
   margin: 2rem 0;
   border: 1px solid #85d6ff;
   border-radius: 6px;
   padding: 0.5rem 2%;
 }
-.account label {
+.account label,
+.add-classif label,
+.add-inv label {
   display: block;
   padding-top: 1rem;
   color: #85d6ff;
   font-size: 0.9rem;
 }
+.add-classif input[type="text"],
+.add-inv input[type="text"],
 .account input[type="text"],
 .account input[type="email"],
 .account input[type="password"] {
@@ -213,10 +265,14 @@ p {
   appearance: none;
   cursor: text;
 }
-.account ::placeholder {
+.account ::placeholder,
+.add-classif ::placeholder,
+.add-inv ::placeholder {
   color: black;
 }
-.account input[type="submit"] {
+.account input[type="submit"],
+.add-classif input[type="submit"],
+.add-inv input[type="submit"] {
   border: none;
   background-color: #91b8d4;
   color: #0a2239;
@@ -229,16 +285,23 @@ p {
   cursor: pointer;
 }
 .account input:required:invalid,
+input:focus:invalid,
+.add-classif input:required:invalid,
+input:focus:invalid,
+.add-inv input:required:invalid,
 input:focus:invalid {
   border-bottom: solid 8px #85d6ff;
 }
-.account input:required:valid {
+.account input:required:valid,
+.add-classif input:required:valid,
+.add-inv input:required:valid {
   border-bottom: solid 8px #7093ae;
 }
 #login p {
   text-align: center;
 }
 footer {
+  display: block;
   background-color: black;
   color: #85d6ff;
   text-align: center;
@@ -263,6 +326,8 @@ footer {
     padding: 25px;
   }
   .overlay-text img {
+    width: auto;
+    height: auto;
     padding-top: 25px;
   }
   #combined {
@@ -278,10 +343,16 @@ footer {
     grid-column: 1/2;
     grid-row: 1;
   }
+  #inv-display img {
+    width: auto;
+    height: auto;
+  }
   .vehicle-container {
     column-count: 2;
   }
-  .account input[type="submit"] {
+  .account input[type="submit"],
+  .add-classif input[type="submit"],
+  .add-inv input[type="submit"] {
     margin: 1rem 2% 2rem 25%;
   }
 }
