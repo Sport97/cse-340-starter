@@ -7,14 +7,14 @@
 </ul>
 <% } %>
 <div id="inventory">
-  <form class="add-inv" action="/inv/add-inventory" method="post">
+  <form id="updateForm" class="inv-form" action="/inv/update" method="post">
     <fieldset class="inventory-details">
       <label id="inv_make"
         >Make:<input
           type="text"
           name="inv_make"
           required
-          value="<%= locals.inv_make %>"
+          value="<%= inv_make %>"
       /></label>
 
       <label id="inv_model"
@@ -22,7 +22,7 @@
           type="text"
           name="inv_model"
           required
-          value="<%= locals.inv_model %>"
+          value="<%= inv_model %>"
       /></label>
 
       <label id="inv_year"
@@ -30,7 +30,7 @@
           type="text"
           name="inv_year"
           required
-          value="<%= locals.inv_year %>"
+          value="<%= inv_year %>"
       /></label>
 
       <label id="inv_description"
@@ -38,7 +38,7 @@
           type="text"
           name="inv_description"
           required
-          value="<%= locals.inv_description %>"
+          value="<%= inv_description %>"
       /></label>
 
       <label id="inv_image"
@@ -46,7 +46,7 @@
           type="text"
           name="inv_image"
           required
-          value="/images/vehicles/no-image.png"
+          value="<%= inv_image %>"
       /></label>
 
       <label id="inv_thumbnail"
@@ -54,7 +54,7 @@
           type="text"
           name="inv_thumbnail"
           required
-          value="/images/vehicles/no-image-tn.png"
+          value="<%= inv_thumbnail %>"
       /></label>
 
       <label id="inv_price"
@@ -62,7 +62,7 @@
           type="text"
           name="inv_price"
           required
-          value="<%= locals.inv_price %>"
+          value="<%= inv_price %>"
       /></label>
 
       <label id="inv_miles"
@@ -70,7 +70,7 @@
           type="text"
           name="inv_miles"
           required
-          value="<%= locals.inv_miles %>"
+          value="<%= inv_miles %>"
       /></label>
 
       <label id="inv_color"
@@ -78,14 +78,17 @@
           type="text"
           name="inv_color"
           required
-          value="<%= locals.inv_color %>"
+          value="<%= inv_color %>"
       /></label>
 
       <label id="classification_id"
-        >Classification: <%- classificationList, locals.classification_id %>
+        >Classification: <%- classificationSelect, classification_id %>
       </label>
     </fieldset>
 
-    <input type="submit" name="invBtn" value="Add inventory" />
+    <input type="submit" id="editInvBtn" name="editInvBtn" value="Update Vehicle" disabled />
+    <input type="hidden" name="inv_id" <% if (locals.inv_id) { %> value="<%= locals.inv_id %>" <% } %> />
   </form>
 </div>
+
+<script src="../../js/inv-update.js"></script>
