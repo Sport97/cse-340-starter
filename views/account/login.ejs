@@ -1,24 +1,11 @@
 <h1><%= title %></h1>
 <%- messages() %>
 <div id="login">
-  <form class="account" action="/account/login" method="post">
+  <form class="user-form" action="/account/login" method="post">
     <fieldset class="sign-in">
-      <label id="account_email"
-        >Email:<input
-          type="email"
-          name="account_email"
-          required
-          placeholder="Enter a valid email address"
-          value="<%= locals.account_email %>"
-      /></label>
+      <label id="account_email">Email:<input type="email" name="account_email" required placeholder="Enter a valid email address" value="<%= locals.account_email %>" /></label>
 
-      <label id="account_password"
-        >Password:<input
-          type="password"
-          name="account_password"
-          required
-          pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$"
-      /></label>
+      <label id="account_password">Password:<input type="password" name="account_password" required pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$" /></label>
     </fieldset>
 
     <input type="submit" name="loginBtn" value="Login" />

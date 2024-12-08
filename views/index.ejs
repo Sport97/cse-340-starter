@@ -1,11 +1,13 @@
 <h1>Welcome to CSE Motors!</h1>
-<%- messages() %>
+<%- messages() %> <% if (errors) { %>
+<ul class="notice">
+  <% errors.array().forEach(error => { %>
+  <li><%= error.msg %></li>
+  <% }) %>
+</ul>
+<% } %>
 <section class="welcome">
-  <img
-    src="/images/vehicles/delorean.jpg"
-    alt="main-background-image"
-    class="dmc-background"
-  />
+  <img src="/images/vehicles/delorean.jpg" alt="main-background-image" class="dmc-background" />
   <div class="overlay-text">
     <h2>DMC Delorean</h2>
     <p>3 Cup Holders</p>

@@ -7,44 +7,17 @@
 </ul>
 <% } %>
 <div id="login">
-  <form class="account" action="/account/register" method="post">
+  <form class="user-form" action="/account/register" method="post">
     <fieldset class="register">
-      <label id="account_firstname"
-        >First Name:<input
-          type="text"
-          name="account_firstname"
-          required
-          value="<%= locals.account_firstname %>"
-      /></label>
+      <label id="account_firstname">First Name:<input type="text" name="account_firstname" required value="<%= locals.account_firstname %>" /></label>
 
-      <label id="account_lastname"
-        >Last Name:<input
-          type="text"
-          name="account_lastname"
-          required
-          value="<%= locals.account_lastname %>"
-      /></label>
+      <label id="account_lastname">Last Name:<input type="text" name="account_lastname" required value="<%= locals.account_lastname %>" /></label>
 
-      <label id="account_email"
-        >Email:<input
-          type="email"
-          name="account_email"
-          required
-          placeholder="Enter a valid email address"
-          value="<%= locals.account_email %>"
-      /></label>
+      <label id="account_email">Email:<input type="email" name="account_email" required placeholder="Enter a valid email address" value="<%= locals.account_email %>" /></label>
 
-      <label id="account_password"
-        >Password:<input
-          type="password"
-          name="account_password"
-          required
-          pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$"
-      /></label>
-      <span
-        >Password must be at least 12 characters and contain at least 1 number,
-        1 capital letter and 1 special character</span
-      >
+      <label id="account_password">Password:<input type="password" name="account_password" required pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$" /></label>
+      <span>Password must be at least 12 characters and contain at least 1 number,
+        1 capital letter and 1 special character</span>
     </fieldset>
 
     <input type="submit" name="regBtn" value="Register" />

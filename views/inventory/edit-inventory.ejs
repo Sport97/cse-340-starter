@@ -7,82 +7,27 @@
 </ul>
 <% } %>
 <div id="inventory">
-  <form id="updateForm" class="inv-form" action="/inv/update" method="post">
+  <form id="updateForm" class="user-form" action="/inv/update" method="post">
     <fieldset class="inventory-details">
-      <label id="inv_make"
-        >Make:<input
-          type="text"
-          name="inv_make"
-          required
-          value="<%= inv_make %>"
-      /></label>
+      <label id="inv_make">Make:<input type="text" name="inv_make" required value="<%= inv_make %>" /></label>
 
-      <label id="inv_model"
-        >Model:<input
-          type="text"
-          name="inv_model"
-          required
-          value="<%= inv_model %>"
-      /></label>
+      <label id="inv_model">Model:<input type="text" name="inv_model" required value="<%= inv_model %>" /></label>
 
-      <label id="inv_year"
-        >Year:<input
-          type="text"
-          name="inv_year"
-          required
-          value="<%= inv_year %>"
-      /></label>
+      <label id="inv_year">Year:<input type="text" name="inv_year" required value="<%= inv_year %>" /></label>
 
-      <label id="inv_description"
-        >Description:<input
-          type="text"
-          name="inv_description"
-          required
-          value="<%= inv_description %>"
-      /></label>
+      <label id="inv_description">Description:<input type="text" name="inv_description" required value="<%= inv_description %>" /></label>
 
-      <label id="inv_image"
-        >Image:<input
-          type="text"
-          name="inv_image"
-          required
-          value="<%= inv_image %>"
-      /></label>
+      <label id="inv_image">Image:<input type="text" name="inv_image" required value="<%= inv_image %>" /></label>
 
-      <label id="inv_thumbnail"
-        >Thumbnail:<input
-          type="text"
-          name="inv_thumbnail"
-          required
-          value="<%= inv_thumbnail %>"
-      /></label>
+      <label id="inv_thumbnail">Thumbnail:<input type="text" name="inv_thumbnail" required value="<%= inv_thumbnail %>" /></label>
 
-      <label id="inv_price"
-        >Price:<input
-          type="text"
-          name="inv_price"
-          required
-          value="<%= inv_price %>"
-      /></label>
+      <label id="inv_price">Price:<input type="text" name="inv_price" required value="<%= inv_price %>" /></label>
 
-      <label id="inv_miles"
-        >Miles:<input
-          type="text"
-          name="inv_miles"
-          required
-          value="<%= inv_miles %>"
-      /></label>
+      <label id="inv_miles">Miles:<input type="text" name="inv_miles" required value="<%= inv_miles %>" /></label>
 
-      <label id="inv_color"
-        >Color:<input
-          type="text"
-          name="inv_color"
-          required
-          value="<%= inv_color %>"
-      /></label>
+      <label id="inv_color">Color:<input type="text" name="inv_color" required value="<%= inv_color %>" /></label>
 
-      <label id="classification_id"
-        >Classification: <%- classificationSelect, classification_id %>
+      <label id="classification_id">Classification: <%- classificationSelect, classification_id %>
       </label>
     </fieldset>
 

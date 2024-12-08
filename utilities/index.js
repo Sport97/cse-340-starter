@@ -137,7 +137,11 @@ Util.checkJWTToken = (req, res, next) => {
           res.clearCookie("jwt");
           return res.redirect("/account/login");
         }
-        res.locals.accountData = accountData;
+        if (req.session.accountData) {
+          res.locals.accountData = req.session.accountData;
+        } else {
+          res.locals.accountData = accountData;
+        }
         res.locals.loggedin = 1;
         next();
       }
@@ -157,6 +161,29 @@ Util.checkLogin = (req, res, next) => {
     req.flash("notice", "Please log in.");
     return res.redirect("/account/login");
   }
+};
+
+Util.checkAccountAccess = (req, res, next) => {
+  if (res.locals.loggedin && res.locals.accountData) {
+    const { account_type } = res.locals.accountData;
+    if (account_type === "Admin" || account_type === "Employee") {
+      return next();
+    } else {
+      req.flash("notice", "Access denied.");
+      return res.redirect("/account/login");
+    }
+  } else {
+    req.flash("notice", "Please log in to access this page.");
+    return res.redirect("/account/login");
+  }
+};
+
+Util.logout = (req, res) => {
+  res.clearCookie("jwt");
+  req.session.accountData = null;
+  res.locals.accountData = null;
+  req.flash("notice", "You have successfully logged out.");
+  res.redirect("/");
 };
 
 /* ****************************************

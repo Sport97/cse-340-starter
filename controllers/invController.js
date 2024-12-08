@@ -42,7 +42,7 @@ invCont.buildManagement = async function (req, res, next) {
   let nav = await utilities.getNav();
   let classificationList = await utilities.buildClassificationList();
   res.render("inventory/management", {
-    title: "Management",
+    title: "Inventory Management",
     nav,
     classificationList,
     errors: null,
@@ -82,7 +82,7 @@ invCont.newClassification = async function (req, res) {
     let nav = await utilities.getNav();
     let classificationList = await utilities.buildClassificationList();
     res.status(201).render("inventory/management", {
-      title: "Management",
+      title: "Inventory Management",
       nav,
       classificationList,
       errors: null,
@@ -133,7 +133,7 @@ invCont.newInventory = async function (req, res) {
       `Congratulations, you created new inventory for ${inv_year}  ${inv_make}.`
     );
     res.status(201).render("inventory/management", {
-      title: "Management",
+      title: "Inventory Management",
       nav,
       classificationList,
       errors: null,
@@ -232,7 +232,7 @@ invCont.updateInventory = async function (req, res, next) {
     req.flash("notice", `The ${itemName} was successfully updated.`);
     // res.redirect("/inv/");
     res.status(201).render("inventory/management", {
-      title: "Management",
+      title: "Inventory Management",
       nav,
       classificationList,
       errors: null,
@@ -290,7 +290,7 @@ invCont.deleteInventory = async function (req, res, next) {
     req.flash("notice", `Item ${inv_id} was successfully deleted.`);
     // res.redirect("/inv/");
     res.status(201).render("inventory/management", {
-      title: "Management",
+      title: "Inventory Management",
       nav,
       classificationList,
       errors: null,

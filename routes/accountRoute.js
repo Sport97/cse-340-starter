@@ -31,6 +31,30 @@ router.get(
   utilities.handleErrors(accountController.buildManagement)
 );
 
-router.get("/", utilities.handleErrors(accountController.buildManagement));
+router.post(
+  "/",
+  utilities.checkLogin,
+  utilities.handleErrors(accountController.buildManagement)
+);
+
+router.get(
+  "/update/:account_id",
+  utilities.handleErrors(accountController.buildUpdate)
+);
+
+router.post(
+  "/update",
+  regValidate.updateAccountRules(),
+  regValidate.checkUpdateAccountData,
+  utilities.handleErrors(accountController.updateAccount)
+);
+router.post(
+  "/change",
+  regValidate.changePasswordRules(),
+  regValidate.checkUpdateAccountData,
+  utilities.handleErrors(accountController.changePassword)
+);
+
+router.get("/logout", utilities.logout);
 
 module.exports = router;
