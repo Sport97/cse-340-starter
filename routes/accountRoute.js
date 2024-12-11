@@ -39,6 +39,7 @@ router.post(
 
 router.get(
   "/update/:account_id",
+  utilities.checkAccountId,
   utilities.handleErrors(accountController.buildUpdate)
 );
 
@@ -46,12 +47,14 @@ router.post(
   "/update",
   regValidate.updateAccountRules(),
   regValidate.checkUpdateAccountData,
+  utilities.checkAccountId,
   utilities.handleErrors(accountController.updateAccount)
 );
 router.post(
   "/change",
   regValidate.changePasswordRules(),
   regValidate.checkUpdateAccountData,
+  utilities.checkAccountId,
   utilities.handleErrors(accountController.changePassword)
 );
 

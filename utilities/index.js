@@ -1,4 +1,5 @@
 const invModel = require("../models/inventory-model");
+const accountModel = require("../models/account-model");
 const jwt = require("jsonwebtoken");
 const env = require("dotenv").config();
 const Util = {};
@@ -163,7 +164,7 @@ Util.checkLogin = (req, res, next) => {
   }
 };
 
-Util.checkAccountAccess = (req, res, next) => {
+Util.checkAccountType = (req, res, next) => {
   if (res.locals.loggedin && res.locals.accountData) {
     const { account_type } = res.locals.accountData;
     if (account_type === "Admin" || account_type === "Employee") {
@@ -174,6 +175,22 @@ Util.checkAccountAccess = (req, res, next) => {
     }
   } else {
     req.flash("notice", "Please log in to access this page.");
+    return res.redirect("/account/login");
+  }
+};
+
+Util.checkAccountId = (req, res, next) => {
+  const account_id = parseInt(req.params.account_id);
+
+  if (!res.locals.loggedin) {
+    req.flash("notice", "Please log in to access this page.");
+    return res.redirect("/account/login");
+  }
+
+  if (res.locals.accountData.account_id === account_id) {
+    return next();
+  } else {
+    req.flash("notice", "Access denied.");
     return res.redirect("/account/login");
   }
 };

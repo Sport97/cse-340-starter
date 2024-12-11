@@ -15,16 +15,20 @@ router.get(
   utilities.handleErrors(invController.buildByVehicleId)
 );
 
-router.get("/", utilities.handleErrors(invController.buildManagement));
+router.get(
+  "/",
+  utilities.checkAccountType,
+  utilities.handleErrors(invController.buildManagement)
+);
 
 router.get(
   "/add-classification",
-  utilities.checkAccountAccess,
+  utilities.checkAccountType,
   utilities.handleErrors(invController.addClassification)
 );
 router.get(
   "/add-inventory",
-  utilities.checkAccountAccess,
+  utilities.checkAccountType,
   utilities.handleErrors(invController.addInventory)
 );
 
@@ -32,26 +36,26 @@ router.post(
   "/add-classification",
   invValidate.classifRules(),
   invValidate.checkClassifData,
-  utilities.checkAccountAccess,
+  utilities.checkAccountType,
   utilities.handleErrors(invController.newClassification)
 );
 router.post(
   "/add-inventory",
   invValidate.invRules(),
   invValidate.checkInvData,
-  utilities.checkAccountAccess,
+  utilities.checkAccountType,
   utilities.handleErrors(invController.newInventory)
 );
 
 router.get(
   "/getInventory/:classification_id",
-  utilities.checkAccountAccess,
+  utilities.checkAccountType,
   utilities.handleErrors(invController.getInventoryJSON)
 );
 
 router.get(
   "/edit/:inv_id",
-  utilities.checkAccountAccess,
+  utilities.checkAccountType,
   utilities.handleErrors(invController.editInventoryView)
 );
 
@@ -59,16 +63,20 @@ router.post(
   "/update",
   invValidate.newInventoryRules(),
   invValidate.checkUpdateData,
-  utilities.checkAccountAccess,
+  utilities.checkAccountType,
   utilities.handleErrors(invController.updateInventory)
 );
 
 router.get(
   "/delete/:inv_id",
-  utilities.checkAccountAccess,
+  utilities.checkAccountType,
   utilities.handleErrors(invController.deleteInventoryView)
 );
 
-router.post("/delete", utilities.handleErrors(invController.deleteInventory));
+router.post(
+  "/delete",
+  utilities.checkAccountType,
+  utilities.handleErrors(invController.deleteInventory)
+);
 
 module.exports = router;
