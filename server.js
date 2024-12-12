@@ -21,6 +21,7 @@ const inventoryRoute = require("./routes/inventoryRoute");
 const utilities = require("./utilities/index");
 const errorRoute = require("./routes/errorRoute");
 const accountRoute = require("./routes/accountRoute");
+const adminRoute = require("./routes/adminRoute");
 const accountController = require("./controllers/accountController");
 
 /* ***********************
@@ -73,6 +74,8 @@ app.use("/inv", inventoryRoute);
 app.use("/error", errorRoute);
 
 app.use("/account", accountRoute);
+
+app.use("/admin", adminRoute);
 
 // File Not Found Route - must be last route in list
 app.use(async (req, res, next) => {

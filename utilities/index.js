@@ -1,5 +1,6 @@
 const invModel = require("../models/inventory-model");
 const accountModel = require("../models/account-model");
+const adminModel = require("../models/admin-model");
 const jwt = require("jsonwebtoken");
 const env = require("dotenv").config();
 const Util = {};
@@ -201,6 +202,61 @@ Util.logout = (req, res) => {
   res.locals.accountData = null;
   req.flash("notice", "You have successfully logged out.");
   res.redirect("/");
+};
+
+Util.checkAdminOnly = (req, res, next) => {
+  if (res.locals.loggedin && res.locals.accountData) {
+    const { account_type } = res.locals.accountData;
+    if (account_type === "Admin") {
+      return next();
+    } else {
+      req.flash("notice", "Access denied.");
+      return res.redirect("/account/login");
+    }
+  } else {
+    req.flash("notice", "Please log in to access this page.");
+    return res.redirect("/account/login");
+  }
+};
+
+Util.buildUnapprovedClassifications = async function (req, res) {
+  try {
+    let unapprovedClassifications =
+      await adminModel.getClassificationApproved();
+    res.json(unapprovedClassifications.rows);
+  } catch (error) {
+    console.error("Error fetching unapproved classifications:", error);
+    res.status(500).json({ error: "Failed to fetch classifications." });
+  }
+};
+
+Util.getUnapprovedClasssifications = async function (req, res, next) {
+  let data = await adminModel.getClassificationApproved();
+  let list = "<ul>";
+
+  data.rows.forEach((row) => {
+    list += "<li>";
+    list += `${row.classification_name}`;
+
+    if (!row.classification_approved) {
+      list += `
+      <form class="admin-form" action="/admin/approve-classification" method="post">
+        <input type="hidden" name="classification_id" value="${row.classification_id}" />
+        <input type="submit" class="approveClassifBtn" name="approveClassifBtn" value="Approve" />
+      </form>`;
+    }
+
+    list += `
+    <form class="admin-form" action="/admin/delete-classification" method="post">
+      <input type="hidden" name="classification_id" value="${row.classification_id}" />
+      <input type="submit" class="deleteClassifBtn" name="deleteClassifBtn" value="Delete" />
+    </form>
+    `;
+    list += "</li>";
+  });
+
+  list += "</ul>";
+  return list;
 };
 
 /* ****************************************

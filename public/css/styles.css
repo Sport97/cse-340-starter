@@ -293,6 +293,55 @@ input:focus:invalid {
 #login p {
   text-align: center;
 }
+#unapprovedClassifications {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 10px;
+}
+#unapprovedClassifications form input[type="submit"] {
+  margin: 0;
+}
+#unapprovedClassifications ul {
+  display: block;
+  width: 100%;
+  justify-content: left;
+  list-style-type: none;
+  overflow: hidden;
+  justify-content: left;
+  padding: 10px;
+}
+#unapprovedClassifications li {
+  display: block;
+  text-align: left;
+  font-size: 2rem;
+  padding: 10px;
+}
+#unapprovedClassifications li a {
+  display: block;
+  text-align: left;
+  text-decoration: none;
+  color: #85d6ff;
+  font-size: 1.1rem;
+  padding: 10px;
+}
+.approveClassifBtn,
+.deleteClassifBtn {
+  display: inline-block;
+  border: none;
+  background-color: #91b8d4;
+  color: #0a2239;
+  border-radius: 6px;
+  padding: 0.8rem;
+  width: 100%;
+  margin: 0;
+  box-shadow: 1px 1px 4px #85d6ff;
+  cursor: pointer;
+}
+.deleteClassifBtn {
+  background-color: black;
+  color: #85d6ff;
+}
 footer {
   display: block;
   background-color: black;

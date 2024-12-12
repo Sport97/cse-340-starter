@@ -1,4 +1,5 @@
 const invModel = require("../models/inventory-model");
+const adminModel = require("../models/admin-model");
 const utilities = require("../utilities/");
 
 const invCont = {};
@@ -71,26 +72,73 @@ invCont.addInventory = async function (req, res, next) {
 
 invCont.newClassification = async function (req, res) {
   const { classification_name } = req.body;
+  const { account_type, account_id } = res.locals.accountData;
 
-  const regResult = await invModel.newClassification(classification_name);
+  try {
+    if (account_type === "Admin") {
+      const regResult = await adminModel.newClassification(
+        classification_name,
+        account_id
+      );
 
-  if (regResult) {
-    req.flash(
-      "notice",
-      `Congratulations, you created new classification ${classification_name}.`
-    );
-    let nav = await utilities.getNav();
-    let classificationList = await utilities.buildClassificationList();
-    res.status(201).render("inventory/management", {
-      title: "Inventory Management",
-      nav,
-      classificationList,
-      errors: null,
-    });
-  } else {
-    let nav = await utilities.getNav();
-    req.flash("notice", "Sorry, add classification failed.");
-    res.status(501).render("inventory/add-classification", {
+      if (regResult) {
+        let nav = await utilities.getNav();
+        req.flash(
+          "notice",
+          `Congratulations, you created new classification ${classification_name}.`
+        );
+
+        let classificationList = await utilities.buildClassificationList();
+        return res.status(201).render("inventory/management", {
+          title: "Inventory Management",
+          nav,
+          classificationList,
+          errors: null,
+        });
+      } else {
+        let nav = await utilities.getNav();
+        req.flash("notice", "Sorry, adding classification failed.");
+        return res.status(501).render("inventory/add-classification", {
+          title: "Add Classification",
+          nav,
+          errors: null,
+        });
+      }
+    } else {
+      const requestResult = await invModel.requestClassificationApproval(
+        classification_name
+      );
+
+      if (requestResult) {
+        let nav = await utilities.getNav();
+        req.flash(
+          "notice",
+          `Your request for classification '${classification_name}' has been submitted for approval.`
+        );
+        let classificationList = await utilities.buildClassificationList();
+        return res.status(200).render("inventory/management", {
+          title: "Inventory Management",
+          nav,
+          classificationList,
+          errors: null,
+        });
+      } else {
+        let nav = await utilities.getNav();
+        req.flash(
+          "notice",
+          "Sorry, your request could not be submitted. Please try again."
+        );
+        return res.status(500).render("inventory/add-classification", {
+          title: "Add Classification",
+          nav,
+          errors: null,
+        });
+      }
+    }
+  } catch (error) {
+    console.error("Error processing classification request:", error);
+    req.flash("notice", "An unexpected error occurred. Please try again.");
+    return res.status(500).render("inventory/add-classification", {
       title: "Add Classification",
       nav,
       errors: null,
@@ -298,7 +346,7 @@ invCont.deleteInventory = async function (req, res, next) {
   } else {
     req.flash("notice", "Sorry, the removal failed.");
     res.status(501).render("inventory/delete-confirm", {
-      title: `Delete Item ${itemId}`,
+      title: `Delete Item ${inv_id}`,
       nav,
       errors: null,
       inv_id,
