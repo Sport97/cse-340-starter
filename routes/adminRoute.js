@@ -10,7 +10,7 @@ router.get(
 );
 
 router.get(
-  "/manage-classification",
+  "/approve-classification",
   utilities.checkAdminOnly,
   utilities.handleErrors(adminController.buildManageClassification)
 );
@@ -23,6 +23,17 @@ router.post(
 router.post(
   "/delete-classification",
   utilities.handleErrors(adminController.deleteClassification)
+);
+
+router.get(
+  "/approve-inventory",
+  utilities.checkAdminOnly,
+  utilities.handleErrors(adminController.buildApproveInventory)
+);
+
+router.post(
+  "/approve-inventory",
+  utilities.handleErrors(adminController.approveInventory)
 );
 
 module.exports = router;

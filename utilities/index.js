@@ -232,9 +232,10 @@ Util.buildUnapprovedClassifications = async function (req, res) {
 
 Util.getUnapprovedClasssifications = async function (req, res, next) {
   let data = await adminModel.getClassificationApproved();
-  let list = "<ul>";
+  let list = `<div class="unapproved">`;
 
   data.rows.forEach((row) => {
+    list += "<ul>";
     list += "<li>";
     list += `${row.classification_name}`;
 
@@ -242,20 +243,52 @@ Util.getUnapprovedClasssifications = async function (req, res, next) {
       list += `
       <form class="admin-form" action="/admin/approve-classification" method="post">
         <input type="hidden" name="classification_id" value="${row.classification_id}" />
-        <input type="submit" class="approveClassifBtn" name="approveClassifBtn" value="Approve" />
+        <input type="submit" class="approveBtn" name="approveBtn" value="Approve" />
       </form>`;
-    }
 
-    list += `
-    <form class="admin-form" action="/admin/delete-classification" method="post">
-      <input type="hidden" name="classification_id" value="${row.classification_id}" />
-      <input type="submit" class="deleteClassifBtn" name="deleteClassifBtn" value="Delete" />
-    </form>
+      list += `
+      <form class="admin-form" action="/admin/delete-classification" method="post">
+        <input type="hidden" name="classification_id" value="${row.classification_id}" />
+        <input type="submit" class="deleteBtn" name="deleteBtn" value="Delete" />
+      </form>
     `;
-    list += "</li>";
+      list += "</li>";
+      list += "</ul>";
+    }
   });
+  list += "<p>No Classification Requests</p>";
+  list += "</div>";
+  return list;
+};
 
-  list += "</ul>";
+Util.getUnapprovedInventory = async function (req, res, next) {
+  let data = await adminModel.getInventoryApproved();
+  let list = `<div class="unapproved">`;
+
+  data.rows.forEach((row) => {
+    list += "<ul>";
+    list += "<li>";
+    list += `${row.inv_make} ${row.inv_model}`;
+
+    if (!row.inv_approved) {
+      list += `
+      <form class="admin-form" action="/admin/approve-inventory" method="post">
+        <input type="hidden" name="inv_id" value="${row.inv_id}" />
+        <input type="submit" class="approveBtn" name="approveBtn" value="Approve" />
+      </form>`;
+
+      list += `
+      <form class="admin-form" action="/admin/delete-inventory" method="post">
+        <input type="hidden" name="inv_id" value="${row.inv_id}" />
+        <input type="submit" class="deleteBtn" name="deleteBtn" value="Delete" />
+      </form>
+    `;
+      list += "</li>";
+      list += "</ul>";
+    }
+  });
+  list += "<p>No Inventory Requests</p>";
+  list += "</div>";
   return list;
 };
 

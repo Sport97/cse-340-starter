@@ -11,6 +11,13 @@
   <a href="/inv/" title="Go to Inventory Management">Access Inventory Management</a>
 </p>
 <% } %>
+
+<% if (locals.accountData.account_type === "Admin") { %>
+<h3>Admin Management</h3>
+<p>
+  <a href="/admin/" title="Go to Admin Management">Admin Management</a>
+</p>
+<% } %>
 <% } else { %>
 <h2>Please log in to access your account.</h2>
 <% } %>

@@ -293,16 +293,16 @@ input:focus:invalid {
 #login p {
   text-align: center;
 }
-#unapprovedClassifications {
+.unapproved {
   display: flex;
   justify-content: flex-start;
   align-items: center;
   gap: 10px;
 }
-#unapprovedClassifications form input[type="submit"] {
+.unapproved form input[type="submit"] {
   margin: 0;
 }
-#unapprovedClassifications ul {
+.unapproved ul {
   display: block;
   width: 100%;
   justify-content: left;
@@ -311,13 +311,13 @@ input:focus:invalid {
   justify-content: left;
   padding: 10px;
 }
-#unapprovedClassifications li {
+.unapproved li {
   display: block;
   text-align: left;
   font-size: 2rem;
   padding: 10px;
 }
-#unapprovedClassifications li a {
+.unapproved li a {
   display: block;
   text-align: left;
   text-decoration: none;
@@ -325,8 +325,8 @@ input:focus:invalid {
   font-size: 1.1rem;
   padding: 10px;
 }
-.approveClassifBtn,
-.deleteClassifBtn {
+.approveBtn,
+.deleteBtn {
   display: inline-block;
   border: none;
   background-color: #91b8d4;
@@ -338,9 +338,14 @@ input:focus:invalid {
   box-shadow: 1px 1px 4px #85d6ff;
   cursor: pointer;
 }
-.deleteClassifBtn {
+.deleteBtn {
   background-color: black;
   color: #85d6ff;
+}
+.admin-form input:disabled {
+  background-color: #0a2239;
+  color: #91b8d4;
+  cursor: auto;
 }
 footer {
   display: block;

@@ -9,7 +9,7 @@ async function getInventoryByClassificationId(classification_id) {
       `SELECT * FROM public.inventory AS i 
         JOIN public.classification AS c 
         ON i.classification_id = c.classification_id 
-        WHERE i.classification_id = $1`,
+        WHERE i.classification_id = $1 AND i.inv_approved = true`,
       [classification_id]
     );
     return data.rows;
@@ -59,10 +59,43 @@ async function requestClassificationApproval(classification_name) {
   );
 }
 
+async function requestInventoryApproval(
+  inv_make,
+  inv_model,
+  inv_year,
+  inv_description,
+  inv_image,
+  inv_thumbnail,
+  inv_price,
+  inv_miles,
+  inv_color,
+  classification_id
+) {
+  return await pool.query(
+    `INSERT INTO inventory (inv_make, inv_model, inv_year, inv_description, inv_image, inv_thumbnail, inv_price, inv_miles, inv_color, classification_id, inv_approved, account_id)
+    VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, NULL) -- account_id is NULL
+    RETURNING inv_id`,
+    [
+      inv_make,
+      inv_model,
+      inv_year,
+      inv_description,
+      inv_image,
+      inv_thumbnail,
+      inv_price,
+      inv_miles,
+      inv_color,
+      classification_id,
+      false,
+    ]
+  );
+}
+
 module.exports = {
   getInventoryByClassificationId,
   getInventoryByVehicleId,
   checkExistingClassification,
   getClassifications,
   requestClassificationApproval,
+  requestInventoryApproval,
 };
