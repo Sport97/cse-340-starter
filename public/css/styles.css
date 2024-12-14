@@ -347,6 +347,9 @@ input:focus:invalid {
   color: #91b8d4;
   cursor: auto;
 }
+.unapproved p {
+  display: block;
+}
 footer {
   display: block;
   background-color: black;

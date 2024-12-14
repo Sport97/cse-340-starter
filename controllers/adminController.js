@@ -6,9 +6,9 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const env = require("dotenv").config();
 
-async function buildDashboard(req, res, next) {
+async function buildManagement(req, res, next) {
   let nav = await utilities.getNav();
-  res.render("admin/dashboard", {
+  res.render("admin/management", {
     title: "Admin Management",
     nav,
     errors: null,
@@ -45,8 +45,8 @@ async function approveClassification(req, res) {
         "notice",
         `Classification '${result.rows[0].classification_name}' has been successfully approved.`
       );
-      return res.status(200).render("admin/dashboard", {
-        title: "Admin Dashboard",
+      return res.status(200).render("admin/management", {
+        title: "Admin Management",
         nav,
         errors: null,
       });
@@ -65,9 +65,19 @@ async function approveClassification(req, res) {
   }
 }
 
+async function buildDeleteClassification(req, res, next) {
+  let nav = await utilities.getNav();
+  let unusedClassifications = await utilities.getUnusedClasssifications();
+  res.render("admin/delete-classification", {
+    title: "Delete Classification",
+    nav,
+    unusedClassifications,
+    errors: null,
+  });
+}
+
 async function deleteClassification(req, res, next) {
-  let unapprovedClassifications =
-    await utilities.getUnapprovedClasssifications();
+  let unusedClassifications = await utilities.getUnusedClasssifications();
   const { classification_id } = req.body;
   const deleteResult = await adminModel.deleteClassification(classification_id);
 
@@ -77,8 +87,8 @@ async function deleteClassification(req, res, next) {
       "notice",
       `Classification ${classification_id} was successfully deleted.`
     );
-    res.status(201).render("admin/dashboard", {
-      title: "Admin Dashboard",
+    res.status(201).render("admin/management", {
+      title: "Admin Management",
       nav,
       errors: null,
     });
@@ -91,7 +101,7 @@ async function deleteClassification(req, res, next) {
     res.status(501).render("admin/approve-classification", {
       title: "Approve Classification",
       nav,
-      unapprovedClassifications,
+      unusedClassifications,
       errors: null,
       classification_id,
     });
@@ -123,8 +133,8 @@ async function approveInventory(req, res) {
         "notice",
         `Inventory '${result.rows[0].inv_make} ${result.rows[0].inv_model}' has been successfully approved.`
       );
-      return res.status(200).render("admin/dashboard", {
-        title: "Admin Dashboard",
+      return res.status(200).render("admin/management", {
+        title: "Admin Management",
         nav,
         errors: null,
       });
@@ -144,9 +154,10 @@ async function approveInventory(req, res) {
 }
 
 module.exports = {
-  buildDashboard,
+  buildManagement,
   buildManageClassification,
   approveClassification,
+  buildDeleteClassification,
   deleteClassification,
   buildApproveInventory,
   approveInventory,

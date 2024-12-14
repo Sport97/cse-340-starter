@@ -61,11 +61,11 @@ invCont.addClassification = async function (req, res, next) {
 
 invCont.addInventory = async function (req, res, next) {
   let nav = await utilities.getNav();
-  let classificationList = await utilities.buildClassificationList();
+  let newClassificationList = await utilities.buildNewClassificationList();
   res.render("inventory/add-inventory", {
     title: "Add Inventory",
     nav,
-    classificationList,
+    newClassificationList,
     errors: null,
   });
 };
@@ -147,8 +147,6 @@ invCont.newClassification = async function (req, res) {
 };
 
 invCont.newInventory = async function (req, res) {
-  let nav = await utilities.getNav();
-  let classificationList = await utilities.buildClassificationList();
   const { account_type, account_id } = res.locals.accountData;
   const {
     inv_make,
@@ -179,6 +177,8 @@ invCont.newInventory = async function (req, res) {
     );
 
     if (regResult) {
+      let nav = await utilities.getNav();
+      let classificationList = await utilities.buildClassificationList();
       req.flash(
         "notice",
         `Congratulations, you created new inventory for ${inv_year} ${inv_make}.`
@@ -190,11 +190,13 @@ invCont.newInventory = async function (req, res) {
         errors: null,
       });
     } else {
+      let nav = await utilities.getNav();
+      let newClassificationList = await utilities.buildNewClassificationList();
       req.flash("notice", "Sorry, add inventory failed.");
       res.status(501).render("inventory/add-inventory", {
         title: "Add Inventory",
         nav,
-        classificationList,
+        newClassificationList,
         errors: null,
       });
     }
@@ -213,6 +215,8 @@ invCont.newInventory = async function (req, res) {
     );
 
     if (regResult) {
+      let nav = await utilities.getNav();
+      let classificationList = await utilities.buildClassificationList();
       req.flash(
         "notice",
         `Your request for new inventory (${inv_year} ${inv_make}) has been submitted for admin approval.`
@@ -224,11 +228,13 @@ invCont.newInventory = async function (req, res) {
         errors: null,
       });
     } else {
+      let nav = await utilities.getNav();
+      let newClassificationList = await utilities.buildNewClassificationList();
       req.flash("notice", "Sorry, inventory request failed.");
       res.status(501).render("inventory/add-inventory", {
         title: "Add Inventory Request",
         nav,
-        classificationList,
+        newClassificationList,
         errors: null,
       });
     }
@@ -367,12 +373,12 @@ invCont.deleteInventoryView = async function (req, res, next) {
 };
 
 invCont.deleteInventory = async function (req, res, next) {
-  let nav = await utilities.getNav();
-  let classificationList = await utilities.buildClassificationList();
   const { inv_id } = req.body;
   const deleteResult = await adminModel.deleteInventory(inv_id);
 
   if (deleteResult) {
+    let nav = await utilities.getNav();
+    let classificationList = await utilities.buildClassificationList();
     req.flash("notice", `Item ${inv_id} was successfully deleted.`);
     // res.redirect("/inv/");
     res.status(201).render("inventory/management", {
@@ -382,6 +388,7 @@ invCont.deleteInventory = async function (req, res, next) {
       errors: null,
     });
   } else {
+    let nav = await utilities.getNav();
     req.flash("notice", "Sorry, the removal failed.");
     res.status(501).render("inventory/delete-confirm", {
       title: `Delete Item ${inv_id}`,

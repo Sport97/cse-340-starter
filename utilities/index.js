@@ -102,6 +102,25 @@ Util.buildClassificationList = async function (classification_id = null) {
   return classificationList;
 };
 
+Util.buildNewClassificationList = async function (classification_id = null) {
+  let data = await invModel.getNewClassifications();
+  let classificationList =
+    '<select name="classification_id" id="classificationList" required>';
+  classificationList += "<option value=''>Choose a Classification</option>";
+  data.rows.forEach((row) => {
+    classificationList += '<option value="' + row.classification_id + '"';
+    if (
+      classification_id != null &&
+      row.classification_id == classification_id
+    ) {
+      classificationList += " selected ";
+    }
+    classificationList += ">" + row.classification_name + "</option>";
+  });
+  classificationList += "</select>";
+  return classificationList;
+};
+
 /* ************************
  * Constructs the nav HTML unordered list
  ************************** */
@@ -219,17 +238,6 @@ Util.checkAdminOnly = (req, res, next) => {
   }
 };
 
-Util.buildUnapprovedClassifications = async function (req, res) {
-  try {
-    let unapprovedClassifications =
-      await adminModel.getClassificationApproved();
-    res.json(unapprovedClassifications.rows);
-  } catch (error) {
-    console.error("Error fetching unapproved classifications:", error);
-    res.status(500).json({ error: "Failed to fetch classifications." });
-  }
-};
-
 Util.getUnapprovedClasssifications = async function (req, res, next) {
   let data = await adminModel.getClassificationApproved();
   let list = `<div class="unapproved">`;
@@ -256,7 +264,10 @@ Util.getUnapprovedClasssifications = async function (req, res, next) {
       list += "</ul>";
     }
   });
-  list += "<p>No Classification Requests</p>";
+
+  if (data.rows.every((row) => row.classification_approved)) {
+    list += "<p>No Classification Requests</p>";
+  }
   list += "</div>";
   return list;
 };
@@ -287,7 +298,36 @@ Util.getUnapprovedInventory = async function (req, res, next) {
       list += "</ul>";
     }
   });
-  list += "<p>No Inventory Requests</p>";
+
+  if (data.rows.every((row) => row.inv_approved)) {
+    list += "<p>No Inventory Requests</p>";
+  }
+  list += "</div>";
+  return list;
+};
+
+Util.getUnusedClasssifications = async function (req, res, next) {
+  let data = await adminModel.getUnusedClassifications();
+  let list = `<div class="unapproved">`;
+
+  if (data.rows.length === 0) {
+    list += "<p>No Classifications Unused</p>";
+  } else {
+    list += "<ul>";
+    data.rows.forEach((row) => {
+      list += "<li>";
+      list += `${row.classification_name}`;
+      list += `
+        <form class="admin-form" action="/admin/delete-classification" method="post">
+          <input type="hidden" name="classification_id" value="${row.classification_id}" />
+          <input type="submit" class="deleteBtn" name="deleteBtn" value="Delete" />
+        </form>
+      `;
+      list += "</li>";
+    });
+    list += "</ul>";
+  }
+
   list += "</div>";
   return list;
 };

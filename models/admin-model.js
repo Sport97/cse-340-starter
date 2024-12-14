@@ -24,6 +24,19 @@ async function newClassification(classification_name, account_id) {
   }
 }
 
+async function getUnusedClassifications() {
+  return await pool.query(
+    `SELECT c.*
+    FROM public.classification AS c
+    LEFT JOIN public.inventory AS i
+    ON c.classification_id = i.classification_id
+    WHERE c.classification_approved = true
+    AND i.inv_id IS NULL
+    GROUP BY c.classification_id
+    ORDER BY c.classification_name;`
+  );
+}
+
 async function deleteClassification(classification_id) {
   try {
     const sql = "DELETE FROM classification WHERE classification_id = $1";
@@ -134,6 +147,7 @@ module.exports = {
   getClassificationApproved,
   approveClassification,
   newClassification,
+  getUnusedClassifications,
   deleteClassification,
   getInventoryApproved,
   approveInventory,

@@ -6,7 +6,7 @@ const adminController = require("../controllers/adminController");
 router.get(
   "/",
   utilities.checkAdminOnly,
-  utilities.handleErrors(adminController.buildDashboard)
+  utilities.handleErrors(adminController.buildManagement)
 );
 
 router.get(
@@ -17,11 +17,19 @@ router.get(
 
 router.post(
   "/approve-classification",
+  utilities.checkAdminOnly,
   utilities.handleErrors(adminController.approveClassification)
+);
+
+router.get(
+  "/delete-classification",
+  utilities.checkAdminOnly,
+  utilities.handleErrors(adminController.buildDeleteClassification)
 );
 
 router.post(
   "/delete-classification",
+  utilities.checkAdminOnly,
   utilities.handleErrors(adminController.deleteClassification)
 );
 
@@ -33,6 +41,7 @@ router.get(
 
 router.post(
   "/approve-inventory",
+  utilities.checkAdminOnly,
   utilities.handleErrors(adminController.approveInventory)
 );
 

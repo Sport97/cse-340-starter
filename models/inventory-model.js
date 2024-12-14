@@ -46,6 +46,18 @@ async function checkExistingClassification(classification_name) {
  * ************************** */
 async function getClassifications() {
   return await pool.query(
+    `SELECT c.*
+     FROM public.classification AS c
+     JOIN public.inventory AS i
+     ON c.classification_id = i.classification_id
+     WHERE c.classification_approved = true AND i.inv_approved = true
+     GROUP BY c.classification_id
+     ORDER BY c.classification_name`
+  );
+}
+
+async function getNewClassifications() {
+  return await pool.query(
     "SELECT * FROM public.classification WHERE classification_approved = true ORDER BY classification_name"
   );
 }
@@ -96,6 +108,7 @@ module.exports = {
   getInventoryByVehicleId,
   checkExistingClassification,
   getClassifications,
+  getNewClassifications,
   requestClassificationApproval,
   requestInventoryApproval,
 };

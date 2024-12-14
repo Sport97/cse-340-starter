@@ -69,13 +69,13 @@ router.post(
 
 router.get(
   "/delete/:inv_id",
-  utilities.checkAccountType,
+  utilities.checkAdminOnly,
   utilities.handleErrors(invController.deleteInventoryView)
 );
 
 router.post(
   "/delete",
-  utilities.checkAccountType,
+  utilities.checkAdminOnly,
   utilities.handleErrors(invController.deleteInventory)
 );
 
