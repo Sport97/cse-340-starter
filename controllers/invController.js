@@ -380,7 +380,6 @@ invCont.deleteInventory = async function (req, res, next) {
     let nav = await utilities.getNav();
     let classificationList = await utilities.buildClassificationList();
     req.flash("notice", `Item ${inv_id} was successfully deleted.`);
-    // res.redirect("/inv/");
     res.status(201).render("inventory/management", {
       title: "Inventory Management",
       nav,

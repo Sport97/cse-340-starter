@@ -1,10 +1,5 @@
-const invModel = require("../models/inventory-model");
-const accountModel = require("../models/account-model");
 const adminModel = require("../models/admin-model");
 const utilities = require("../utilities/");
-const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken");
-const env = require("dotenv").config();
 
 async function buildManagement(req, res, next) {
   let nav = await utilities.getNav();
@@ -153,6 +148,31 @@ async function approveInventory(req, res) {
   }
 }
 
+async function deleteInventory(req, res, next) {
+  const { inv_id } = req.body;
+  const deleteResult = await adminModel.deleteInventory(inv_id);
+
+  if (deleteResult) {
+    let nav = await utilities.getNav();
+    req.flash("notice", `Item ${inv_id} was successfully deleted.`);
+    res.status(201).render("admin/management", {
+      title: "Admin Management",
+      nav,
+      errors: null,
+    });
+  } else {
+    let nav = await utilities.getNav();
+    let unapprovedInventory = await utilities.getUnapprovedInventory();
+    req.flash("notice", "Sorry, the removal failed.");
+    res.status(501).render("admin/approve-inventory", {
+      title: "Approve Inventory",
+      nav,
+      unapprovedInventory,
+      errors: null,
+    });
+  }
+}
+
 module.exports = {
   buildManagement,
   buildManageClassification,
@@ -161,4 +181,5 @@ module.exports = {
   deleteClassification,
   buildApproveInventory,
   approveInventory,
+  deleteInventory,
 };

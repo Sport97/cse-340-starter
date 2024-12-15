@@ -45,4 +45,10 @@ router.post(
   utilities.handleErrors(adminController.approveInventory)
 );
 
+router.post(
+  "/delete-inventory",
+  utilities.checkAdminOnly,
+  utilities.handleErrors(adminController.deleteInventory)
+);
+
 module.exports = router;
